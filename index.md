@@ -1,273 +1,147 @@
-# Payroll Reconciliation Knowledge Base
+WORKBOOK RULES
 
-## Core Principles
-- SP (PortageBill) is the payroll source.
-- BN (Payroll Summary) is the validation source.
-- The discrepancy master is a tracking register, not payroll evidence.
-- Use payroll evidence before workbook history.
+ACTIVE REGISTER
 
-## Resolution Rules
-A discrepancy may be removed only when evidence proves settlement through:
-- Missing payment paid
-- Recovery completed
-- Previous Balance cleared
-- Final Balance cleared
-- Transfer settlement completed
-- Cross-vessel settlement completed
-- Sign-off settlement completed
-- Settlement identified in payroll
-- Reimbursement settlement identified
-- Aggregated SP rows balancing BN
-- Rounding balance cleared
+The workbook is an active discrepancy register, not a historical archive.
 
-Absence from payroll is not proof of settlement.
+Keep unresolved items.
 
-## SP Investigation Rules
-### Multiple SP Rows
-Aggregate all applicable rows before comparison.
-Include:
-- Earnings
-- Deductions
-- Reimbursements
-- Previous Balance
-- Final Balance
-- Total Earnings
-- Total Deduction
-- Allotments
+Remove only fully resolved items.
 
-### Continuation Rows
-May contain:
-- Blank EMP CODE
-- Additional payroll periods
-- Additional reimbursements
-- Additional totals
+Resolved items should not remain in the register.
 
-Use only when worksheet structure clearly shows the same crew member.
+COLUMN RULES
 
-### Duplicate Protection
-Do not aggregate:
-- Report totals
-- Summary rows
-- Duplicate exports
-- Repeated totals
+Locate every field by HEADER NAME.
 
-## BN Investigation Rules
-Review separately:
-- SAIL
-- STBY
-- Settlement rows
+Never rely on fixed column positions.
 
-Evaluate:
-- Earnings
-- Deductions
-- Current Month
-- Beginning Balance
-- Transfer Amount
-- Final Balance
+Total Earnings column:
 
-Aggregate only after review.
+- Show actual aggregated SP Total Earnings.
 
-## Settlement Logic
-### Split Activity Periods
-Trace:
-1. Initial payroll period
-2. Final Balance
-3. Carry-forward
-4. Subsequent payroll period
-5. Final settlement
+Total Deduction column:
 
-If the chain reconciles, the discrepancy may be resolved.
+- Show actual aggregated SP Total Deduction.
 
-### BN Current Month
-Negative Current Month amounts are not automatically discrepancies.
-They may offset settlements, reimbursements, transfers, allotments, balances or payroll adjustments.
+Component columns:
 
-### Sign-Off Settlement
-Potential locations:
-- SAIL
-- STBY
-- Settlement payroll
-- Following-month payroll
-- Transfers
-- Final Balance
+- Show only SP minus BN differences.
 
-### Deferred Payments
-Examples:
-- Supplementary Allowance
-- Performance Bonus
-- Rejoining Incentive
-- Sign-Off Allowance
-- EX-WORK
-- Travel Claims
-- Reimbursements
+Exact zero values:
 
-## Reimbursement Investigation
-Check:
-- Medical
-- Dental
-- Meal
-- Land Transport
-- Hotel
-- Boiler Suit
-- Airfare
-- Visa
-- Travel Claims
+- Leave blank.
 
-Possible locations:
-- Main SP row
-- Continuation SP row
-- Additional SP row
-- BN SAIL
-- BN STBY
-- Settlement rows
+ONE ISSUE RULE
 
-## Allotment Interpretation
-BN:
-- VOL Allotment
-- Vol Allotment/BOW_PAL
-- Allot.(C)
-- Allot.(V)
+One active discrepancy should occupy one row.
 
-SP:
-- Allotment Special
-- Allotment Regular
+MONTH RULE
 
-General interpretation:
-- Special = earlier payroll period
-- Regular = later payroll period
+Month should reflect the latest evidence related to the issue.
 
-## Balance Tracking
-### Matching Balances
-Matching SP and BN balances are not discrepancies by themselves.
+COLOUR RULES
 
-### Opening Balance Adjustments
-Require investigation before classification.
+Columns A to D:
 
-### Negative Final Balances
-Investigate:
-- Sign-off settlement
-- Transfer settlement
-- Recovery
-- Settlement verification
+- Light blue fill for every active discrepancy row.
 
-ABNORMAL only when a payroll error is confirmed.
+Do not apply to:
 
-## Rounding Balances
-Typical residuals:
-- 0.01
-- 0.02
-- 0.03
+- Titles
+- Headers
+- Legends
+- Blank rows
 
-When earnings, deductions and components reconcile:
-- Use REVIEW – Balance Tracking.
-- Remove only after clearing.
+UNDERPAID:
+- Orange fill
 
-## Component Mapping
-Known mappings:
-- BN Comm -> SP CALLING CARDS
-- BN Comm -> SP DATA CARDS
-- BN Comm -> SP RECOVER ADJ
+OVERPAID:
+- Red fill
 
-Mappings identify equivalent fields but do not automatically reconcile them.
+Total mismatch:
+- Yellow fill
 
-## Singapore CPF Rules
-Definitions:
-- CPFEE = Employee CPF
-- CPFER = Employer CPF
-- CDAC-EE = Chinese SHG
-- MBMF-EE = Malay SHG
-- SINDA-EE = Indian SHG
-- ECF-EE = Eurasian SHG
-- SDL-ER = Skills Development Levy
+Previous Balance:
+- Blue fill
 
-Rules:
-- SHG deductions are additional deductions.
-- SHG is not included in CPFEE.
-- SHG is not included in CPFER.
-- SDL-ER is not included in CPFER.
+Final Balance:
+- Blue fill
 
-# Migration Exceptions And User Confirmed Rules
+FONT RULE
 
-## SP Migration Extract Limitations
-After completion of duplicate-row and continuation-row checks:
-- Missing SP rows
-- All-zero placeholders
-- Hidden migration records
-- Incomplete migration extracts
+Numeric values must use black font.
 
-should not automatically create discrepancies.
+LAYOUT PRESERVATION
 
-## Active Register Philosophy
-- The workbook is an active unresolved-items register.
-- Resolved items should be removed.
-- Retain an item only when future validation is still required.
+Preserve:
 
-## Month Handling
-- Month should reflect the latest payroll evidence for that discrepancy.
-- Cross-month comparison is permitted when settlement occurs later.
+- Filters
+- Frozen panes
+- Borders
+- Formulas
+- Column widths
+- Row heights
+- Existing workbook structure
 
-## User Confirmed Payroll Rules
-### BN Current Month
-Negative BN Current Month values may balance:
-- Earnings
-- Reimbursements
-- Transfers
-- Settlements
-- Beginning balances
+SORTING RULES
 
-Do not classify until the entire chain is reconstructed.
+After updates:
 
-### Reimbursement Rules
-The following may explain differences and must be checked before classification:
-- Airfare
-- Visa
-- Land Transport
-- Hotel
-- Boiler Suit
-- Meal reimbursement
+- Sort by Vessel A-Z.
+- Within Vessel sort by EMP CODE A-Z.
 
-Reimbursements may appear in secondary or continuation SP rows.
+Move the complete row.
 
-### Multi-Row SP Aggregation Rule
-Before creating a discrepancy:
-- Search the entire SP workbook.
-- Aggregate all applicable rows.
-- Check continuation rows.
-- Check reimbursement-only rows.
+Never separate:
 
-A discrepancy created from only the first SP row is invalid.
+- Values
+- Formatting
+- Colours
+- Borders
+- Remarks
+- Formulas
 
-### CPF Migration Rules
-- SHG deductions are separate from CPF contributions.
-- SHG is not included in employee CPF.
-- SHG is not included in employer CPF.
-- SHG differences by themselves should not create discrepancy rows.
+VALIDATION
 
-### Allotment Rules
-- BN Vol Allotment may correspond to SP Allotment Special and/or Allotment Regular.
-- Compare complete allotment flow before classification.
+Before return:
 
-### Balance Chain Rules
-SP Previous Balance and Final Balance may be part of a carry-forward chain.
-Do not classify as discrepancies until the chain is reconstructed.
+- EMP CODE correct
+- EMP NAME correct
+- Vessel correct
+- Rank correct
+- Month correct
+- Remarks correct
+- Header mapping correct
+- All SP rows included
+- All BN rows included
+- Continuation rows included
+- Subtotals excluded
+- Report totals excluded
+- Duplicate exports excluded
+- SP Total Earnings correct
+- SP Total Deduction correct
+- Component differences correct
+- Zero values blank
+- Light blue fill present
+- Discrepancy colours correct
+- No duplicate active rows
+- No unresolved row removed incorrectly
+- Sorting correct
+- Formatting preserved
 
-### Transfer Rules
-Cross-vessel transfers may create settlement chains.
-Review both vessels and subsequent payroll periods before classification.
+FINAL VALIDATION
 
-### Sign-Off Rules
-Sign-off settlements may occur in later payroll periods.
-A missing payment in the current period does not automatically mean UNDERPAID.
+Save workbook.
 
-### Workbook Rules Confirmed By User
-- Total Earnings column must show actual SP Total Earnings.
-- Total Deduction column must show actual SP Total Deduction.
-- Component columns should contain only unreconciled SP minus BN differences.
-- Use workbook headers for placement, not remembered column letters.
-- Numeric values remain black font.
-- Highlight discrepancies according to workbook legend.
+Reopen workbook.
 
-## Future Rule Maintenance
-Add newly confirmed patterns here.
-Do not modify the Frozen Agent Prompt unless workflow or workbook structure changes.
+Validate again using the saved version.
 
+If any check fails:
+
+- Correct.
+- Save.
+- Revalidate.
+
+Only return the workbook after all checks pass.
